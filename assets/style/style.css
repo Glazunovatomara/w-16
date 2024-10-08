@@ -26,11 +26,14 @@ select {
     padding:10px;
     border-radius: 9px;
     border: 1px solid #2aa5a1;
+    outline: none;
+    color: #2aa5a1;
 }
 
 input:user-invalid,
 select:user-invalid {
     border-color: #a52a2a;
+    color: #a52a2a;
 }
 
 input:user-valid,
@@ -61,7 +64,14 @@ input[type="checkbox"] {
 }
 
 .input__submit {
+    margin-top: 20px;
     background-color: #2aa5a1;
     color: #f0f8ff;
     cursor: pointer;
+}
+
+.error {
+    display: none;
+    text-align: right;
+    color: #a52a7ede;
 }

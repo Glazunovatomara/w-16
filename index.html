@@ -11,11 +11,14 @@
         <h1 class="title">Регистрация</h1>
         <form class="form">
             <label class="form__label" for="client_name">Имя</label>
-            <input type="text" minlength="2" maxlength="20" id="client_name" placeholder="Введите ваше имя" required/>
+            <input type="text" minlength="2" maxlength="20" name="client_name" id="client_name" placeholder="Введите ваше имя" required/>
+            <p class="error error_name"></p>
             <label class="form__label" for="client_email">Email</label>
-            <input type="email" placeholder="Введите email" id="client_email" required/>
+            <input type="email" placeholder="Введите email" name="client_email" id="client_email" required/>
+            <p class="error error_email"></p>
             <label class="form__label" for="client_age">Возраст</label>
-            <input type="number" placeholder="Введите ваш возраст" id="client_age" minlength="1" required/>
+            <input type="number" placeholder="Введите ваш возраст" name="client_age" id="client_age" minlength="1" required/>
+            <p class="error error_age"></p>
             <label class="label__radio" >
                 <input type="radio" name="gender" id="male"/>
                 <span class="radio-text">Мужской</span>
@@ -24,7 +27,8 @@
                 <input type="radio" name="gender" id="female"/>
                 <span class="radio-text">Женский</span>
             </label>
-            <select name="" id="" aria-placeholder="Выберите профессию" required>
+            <p class="error error_gender"></p>
+            <select name="profession" id="profession" aria-placeholder="Выберите профессию" required>
                 <option value="">--Выберите профессию--</option>
                 <option value="">Врач</option>
                 <option value="">Программист</option>
@@ -34,14 +38,17 @@
                 <option value="">Продавец</option>
                 <option value="">Другое</option>
             </select>
+            <p class="error error_profession"></p>
             <label class="form__label" for="client_password">Пароль</label>
-            <input type="password" name="" id="client_password" minlength="8" placeholder="Введите пароль" pattern="" required/>
-            <span class="password-help">должно быть не менее 8 символов длиной и содержать как минимум одну заглавную букву, одну строчную букву и одну цифру</span>
+            <input type="password" name="client_password" id="client_password" minlength="8" placeholder="Введите пароль" pattern="" required/>
+            <span class="password-help">* должно быть не менее 8 символов длиной и содержать как минимум одну заглавную букву, одну строчную букву и одну цифру</span>
+            <p class="error error_password"></p>
             <label class=" form__label label__checkbox"> 
-                <input type="checkbox" name="" id="" reqiured/>
-                Оставляя свои контактные данные, я даю согласие на обработку моих данных
+                <input type="checkbox" name="checkbox_block" id="" reqiured/>
+                Оставляя свои контактные данные, я даю согласие на обработку моих персональных данных
             </label>
-            <input type="submit" value="Отправить" class="input__submit">
+            <p class="error error_block"></p>
+            <input type="submit" name="submit" value="Отправить" class="input__submit">
         </form>
     </main>
     
