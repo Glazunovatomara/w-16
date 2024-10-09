@@ -30,7 +30,78 @@ let errorStrProfession = document.querySelector('.error_profession');
 let errorStrPassword = document.querySelector('.error_password');
 let errorStrCheckbox = document.querySelector('.error_block');
 
-const errorEmpty = 'Поле не заполнено';
+const showErrorMessage = () => {
+    const errorEmpty = 'Поле не заполнено';
+
+    let clientNameValue = clientName.value;
+    const nameRagex = /^(?=.*[a-z])(?=.*[A-Z]){2,20}$/;
+    if(clientNameValue === '') {
+        errorStrName.textContent = errorEmpty;
+        errorStrName.style.display = 'block';
+    } else if(nameRagex.test(clientNameValue)) {
+        errorStrName.textContent = '';
+        errorStrName.style.display = '';
+    } else {
+        errorStrName.textContent = 'Некорректный формат имени';
+        errorStrName.style.display = 'block';
+    };
+
+    const emailValue = clientEmail.value;
+    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i;
+    if (emailValue === '') {
+        errorStrEmail.textContent = errorEmpty;
+        errorStrEmail.style.display = 'block';
+    } else if (emailRegex.test(emailValue)) {
+        // Если email соответствует формату, убираем сообщение об ошибке
+        errorStrEmail.textContent = '';
+        errorStrEmail.style.display = '';
+    } else {
+        errorStrEmail.textContent = 'Некорректный формат Email';
+        errorStrEmail.style.display = 'block';
+    };
+
+    let clientAgeValue = clientAge.value;
+    if(clientAgeValue === '') {
+        errorStrAge.textContent = errorEmpty;
+        errorStrAge.style.display = 'block';
+    } else {
+        errorStrAge.textContent = '';
+        errorStrAge.style.display = '';
+    }
+
+    let clientProfessionValue = clientProfession.value;
+    if(clientProfessionValue === '') {
+        errorStrProfession.textContent = errorEmpty;
+        errorStrProfession.style.display = 'block';
+    } else {
+        errorStrProfession.textContent = '';
+        errorStrProfession.style.display = '';
+    }
+
+    let passwordValue = password.value;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d){8,20}$/;
+    if(passwordValue === '') {
+        errorStrPassword.textContent = errorEmpty;
+        errorStrPassword.style.display = 'block';
+    } else if(passwordRegex.test(passwordValue)) {
+        errorStrPassword.textContent = '';
+        errorStrPassword.style.display = '';
+    } else {
+        errorStrPassword.textContent = 'Некорректный формат пароля';
+        errorStrPassword.style.display = 'block';
+    }
+
+    let checkboxValue = checkbox.checked; 
+    if(checkboxValue === false) {
+        errorStrCheckbox.textContent = errorEmpty;
+        errorStrCheckbox.style.display = 'block';
+    } else {
+        errorStrCheckbox.textContent = '';
+        errorStrCheckbox.style.display = 'bock';
+    }
+};
+
+//обработчики событий focus и blur для каждого поля
 
 inpuFields.forEach(function(input) {
     input.addEventListener('focus', function() {
@@ -51,15 +122,22 @@ select.addEventListener('blur', function() {
 });
 
 
-const formSend = () => {
-    let clientNameValue = clientName.value ;
-    let clientEmailValue = clientEmail.value;
-    let clientAgeValue = clientAge.value;
-    let clientGenderValue = clientGender.value;
-    let clientProfessionValue = clientProfession.value;
-    let passwordValue = password.value;
-    let checkboxValue = checkbox.checked; 
+let clientNameValue = clientName.value ;
+let clientEmailValue = clientEmail.value;
+let clientAgeValue = clientAge.value;
+let clientGenderValue = clientGender.value;
+let clientProfessionValue = clientProfession.value;
+let passwordValue = password.value;
+let checkboxValue = checkbox.checked; 
 
-    console.log(`name: ${clientNameValue}, email: ${clientEmailValue}, age:${clientAgeValue},  gender: ${clientGenderValue}, profession:${clientProfessionValue}, password:${passwordValue}, checkbox:${checkboxValue}`);
+const formSend = () => {
+    showErrorMessage()
+    console.log(`name: ${clientName.value}, email: ${clientEmail.value}, age:${clientAge.value},  gender: ${clientGender.value}, profession:${clientProfession.value}, password:${password.value}, checkbox:${checkbox.checked}`);
+    
+    formReset()
 }
 button.addEventListener('click',formSend);
+
+const formReset = () => {
+    form.reset()
+};

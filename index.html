@@ -30,17 +30,17 @@
             <p class="error error_gender"></p>
             <select name="profession" id="profession" aria-placeholder="Выберите профессию" required>
                 <option value="">--Выберите профессию--</option>
-                <option value="">Врач</option>
-                <option value="">Программист</option>
-                <option value="">Учитель</option>
-                <option value="">Дизайнер</option>
-                <option value="">Инженер</option>
-                <option value="">Продавец</option>
-                <option value="">Другое</option>
+                <option value="doctor">Врач</option>
+                <option value="programmer">Программист</option>
+                <option value="teacher">Учитель</option>
+                <option value="designer">Дизайнер</option>
+                <option value="engineer">Инженер</option>
+                <option value="salesman">Продавец</option>
+                <option value="other">Другое</option>
             </select>
             <p class="error error_profession"></p>
             <label class="form__label" for="client_password">Пароль</label>
-            <input type="password" name="client_password" id="client_password" minlength="8" placeholder="Введите пароль" pattern="" required/>
+            <input type="password" name="client_password" id="client_password" minlength="8" placeholder="Введите пароль" pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d){8,20}$/" required/>
             <span class="password-help">* должно быть не менее 8 символов длиной и содержать как минимум одну заглавную букву, одну строчную букву и одну цифру</span>
             <p class="error error_password"></p>
             <label class=" form__label label__checkbox"> 
