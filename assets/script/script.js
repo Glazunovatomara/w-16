@@ -1,8 +1,8 @@
 // Используя JavaScript, добавьте обработчик события отправки формы (submit), который будет выполнять следующие действия:
 
-//Отменять действие по умолчанию для события submit
-//Отображать сообщение об ошибке рядом с каждым полем при обнаружении ошибки валидации
-//Кнопка отправки должна быть неактивна (disabled), пока все поля формы не будут правильно заполнены и не будет отмечен чекбокс согласия с условиями
+//+ Отменять действие по умолчанию для события submit
+// + Отображать сообщение об ошибке рядом с каждым полем при обнаружении ошибки валидации 
+// + Кнопка отправки должна быть неактивна (disabled), пока все поля формы не будут правильно заполнены и не будет отмечен чекбокс согласия с условиями
 //Если форма проходит проверку валидности, выводите в консоль значения полей формы и очищайте форму
 
 const form = document.forms[0];
@@ -18,7 +18,7 @@ const checkbox = form.elements.checkbox_block;
 
 const button = form.elements.submit;
 
-// строка с ошибками 
+// + строка с ошибками 
 
 const errorStr = form.getAttribute('.error');
 
@@ -79,11 +79,12 @@ const showErrorMessage = () => {
     }
 
     let passwordValue = password.value;
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d){8,20}$/;
+    //const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d){8,20}$/;
+    let passwordRegex1 = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,20}$/;
     if(passwordValue === '') {
         errorStrPassword.textContent = errorEmpty;
         errorStrPassword.style.display = 'block';
-    } else if(passwordRegex.test(passwordValue)) {
+    } else if(passwordRegex1.test(passwordValue)) {
         errorStrPassword.textContent = '';
         errorStrPassword.style.display = '';
     } else {
@@ -97,11 +98,12 @@ const showErrorMessage = () => {
         errorStrCheckbox.style.display = 'block';
     } else {
         errorStrCheckbox.textContent = '';
-        errorStrCheckbox.style.display = 'bock';
+        errorStrCheckbox.style.display = 'block';
     }
+
 };
 
-//обработчики событий focus и blur для каждого поля
+// + обработчики событий focus и blur для каждого поля
 
 inpuFields.forEach(function(input) {
     input.addEventListener('focus', function() {
@@ -130,14 +132,38 @@ let clientProfessionValue = clientProfession.value;
 let passwordValue = password.value;
 let checkboxValue = checkbox.checked; 
 
-const formSend = () => {
-    showErrorMessage()
-    console.log(`name: ${clientName.value}, email: ${clientEmail.value}, age:${clientAge.value},  gender: ${clientGender.value}, profession:${clientProfession.value}, password:${password.value}, checkbox:${checkbox.checked}`);
-    
-    formReset()
+//Отменяем стандартное поведение
+function formSubmit(event) {
+    // Просим форму не отправлять данные самостоятельно
+    event.preventDefault()
 }
-button.addEventListener('click',formSend);
+form.addEventListener('submit',formSubmit)
 
-const formReset = () => {
-    form.reset()
-};
+button.disabled = false;
+
+const formSend = () => {
+    //Проверяем данные пользователя
+    const nameRagex = /^(?=.*[a-z])(?=.*[A-Z]){2,20}$/;
+    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i;
+    //const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d){8,20}$/;
+    let passwordRegex1 = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,20}$/;
+    
+    if(nameRagex.test(clientName.value) && emailRegex.test(email.value) && clientProfession.value !== '' && clientAge.value !== '' && passwordRegex1.test(password.value) && checkbox.checked === true){
+        form.submit();
+        form.elements.submit.disabled = true;
+    //выводите в консоль значения полей формы
+        console.log(`name: ${clientName.value}, email: ${clientEmail.value}, age:${clientAge.value},  gender: ${clientGender.value}, profession:${clientProfession.value}, password:${password.value}, checkbox:${checkbox.checked}`);
+        
+    //Сброс полей формы
+        form.reset()
+        alert `if`
+    } else {
+        button.disabled = false;
+        alert `else`
+    }
+
+//    showErrorMessage()
+//    console.log(`name: ${clientName.value}, email: ${clientEmail.value}, age:${clientAge.value},  gender: ${clientGender.value}, profession:${clientProfession.value}, password:${password.value}, checkbox:${checkbox.checked}`);
+}
+
+button.addEventListener('click',formSend);
